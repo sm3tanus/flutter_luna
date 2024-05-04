@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "463184157208",
+    "project_id": "luna-a728b",
+    "storage_bucket": "luna-a728b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463184157208:android:e471660c4c00687a91816d",
+        "android_client_info": {
+          "package_name": "com.example.luna"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJmMihMJ5cOrlCIQJPS5wLLs5LGeETXgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
