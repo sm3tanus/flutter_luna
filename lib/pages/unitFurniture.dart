@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:luna/dataBase/user_service/getUser.dart';
 import 'package:luna/pages/list_furnitures.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
@@ -14,6 +14,22 @@ class InfoFurniture extends StatefulWidget {
 }
 
 class _InfoFurnitureState extends State<InfoFurniture> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> addDataToNestedCollection() async {
+    try {
+      DocumentReference userDocRef =
+          _firestore.collection('users').doc(getUser()?.uid);
+
+      DocumentReference nestedDocRef = userDocRef.collection('RecycleBin').doc(
+          widget.selectedFurniture); 
+      await nestedDocRef.set(
+          {} as Map<String, dynamic>); 
+    } catch (e) {
+      print('Error adding data to nested collection: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +144,6 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                               color: Color(0xff707d60),
                             ),
                           ),
-                          
                           IconButton(
                             onPressed: () {},
                             icon: Icon(
@@ -297,7 +312,9 @@ class _InfoFurnitureState extends State<InfoFurniture> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                addDataToNestedCollection();
+              },
               icon: Icon(
                 Icons.local_grocery_store_outlined,
                 size: 30,
