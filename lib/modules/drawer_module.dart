@@ -38,6 +38,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
               var matchingDocument = userDocs
                   .firstWhere((element) => element['uid'] == getUser()?.uid);
+              // ignore: unnecessary_null_comparison
               if (matchingDocument != null) {
                 name = matchingDocument['name'] as String;
               }
@@ -68,7 +69,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width * 0.68,
+              width: MediaQuery.of(context).size.width * 0.6,
               height: 2,
               decoration: BoxDecoration(
                 color: Color(0xff707d60),
@@ -84,7 +85,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             Container(
               child: Image.network(
                 'https://firebasestorage.googleapis.com/v0/b/luna-a728b.appspot.com/o/loza.png?alt=media&token=a58c2c48-c94e-4511-a7a2-6809624d834a',
-                height: MediaQuery.of(context).size.width * 1.5,
+                height: MediaQuery.of(context).size.width * 1.4,
               ),
             ),
             Column(

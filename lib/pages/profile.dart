@@ -58,6 +58,7 @@ class _ProfileState extends State<Profile> {
                                 var matchingDocument = userDocs.firstWhere(
                                     (element) =>
                                         element['uid'] == getUser()?.uid);
+                                // ignore: unnecessary_null_comparison
                                 if (matchingDocument != null) {
                                   name = matchingDocument['name'] as String;
                                 }
@@ -78,7 +79,7 @@ class _ProfileState extends State<Profile> {
                           Text(
                             getUser()!.email.toString(),
                           ),
-                          IconButton(onPressed: (){}, icon: Icon(Icons.edit))
+                          IconButton(onPressed: () {}, icon: Icon(Icons.edit))
                         ],
                       )
                     ],

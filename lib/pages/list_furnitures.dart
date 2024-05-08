@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:luna/pages/unitFurniture.dart';
 
+// ignore: must_be_immutable
 class ListFurnituresPage extends StatefulWidget {
   String type;
   ListFurnituresPage({Key? key, required this.type}) : super(key: key);
@@ -71,7 +72,7 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
                   Row(
                     children: [
                       Text(
-                        docs['cost'],
+                        docs['cost'].toString(),
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,

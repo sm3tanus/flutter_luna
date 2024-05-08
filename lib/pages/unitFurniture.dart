@@ -1,33 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:luna/dataBase/user_service/getUser.dart';
+import 'package:luna/dataBase/collections/dataCollection.dart';
 import 'package:luna/pages/list_furnitures.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
+import '../dataBase/user_service/getUser.dart';
+
+// ignore: must_be_immutable
 class InfoFurniture extends StatefulWidget {
   dynamic selectedFurniture;
   String type;
-  InfoFurniture({super.key, this.selectedFurniture, required this.type});
+  InfoFurniture({Key? key, required this.selectedFurniture, required this.type})
+      : super(key: key);
 
   @override
   State<InfoFurniture> createState() => _InfoFurnitureState();
 }
 
 class _InfoFurnitureState extends State<InfoFurniture> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  DataCollection data = DataCollection();
+  late Future<List<DocumentSnapshot>> filter;
+  bool recycle = false;
 
-  Future<void> addDataToNestedCollection() async {
-    try {
-      DocumentReference userDocRef =
-          _firestore.collection('users').doc(getUser()?.uid);
+  @override
+  void initState() {
+    super.initState();
+    filter = FirebaseFirestore.instance
+        .collection('users')
+        .doc(getUser()?.uid)
+        .collection('recycleBin')
+        .get()
+        .then((querySnapshot) => querySnapshot.docs
+            .where((element) => element['id'] != "")
+            .toList());
+    _checkRecycle();
+  }
 
-      DocumentReference nestedDocRef = userDocRef.collection('RecycleBin').doc(
-          widget.selectedFurniture); 
-      await nestedDocRef.set(
-          {} as Map<String, dynamic>); 
-    } catch (e) {
-      print('Error adding data to nested collection: $e');
-    }
+  Future<void> _checkRecycle() async {
+    final result = await filter;
+    setState(() {
+      recycle =
+          result.any((doc) => doc['id'] == widget.selectedFurniture['id']);
+    });
   }
 
   @override
@@ -311,18 +325,46 @@ class _InfoFurnitureState extends State<InfoFurniture> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            IconButton(
-              onPressed: () {
-                addDataToNestedCollection();
-              },
-              icon: Icon(
-                Icons.local_grocery_store_outlined,
-                size: 30,
-                color: Colors.black,
-              ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    try {
+                      await data.addDataCollection(widget.selectedFurniture);
+                      setState(() {
+                        recycle = true;
+                      });
+                    } catch (e) {
+                      print('no result');
+                    }
+                  },
+                  icon: Icon(
+                    Icons.local_grocery_store_outlined,
+                    size: 30,
+                    color: recycle
+                        ? Color.fromARGB(255, 255, 166, 0)
+                        : Colors.black,
+                  ),
+                ),
+                Visibility(
+                  visible: recycle,
+                  child: IconButton(
+                    onPressed: () async {
+                      await data.deleteDataCollection(widget.selectedFurniture);
+                      setState(() {
+                        recycle = false;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.remove,
+                      color: Color.fromARGB(255, 255, 166, 0),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Text(
-              widget.selectedFurniture['cost'],
+              widget.selectedFurniture['cost'].toString(),
               style: TextStyle(
                   color: Color(0xffb8b5a2),
                   fontSize: 32,
@@ -340,7 +382,7 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                   'Купить',
                   style: TextStyle(color: Color(0xffb8b5a2)),
                 ),
-                backgroundColor: Colors.black, // Цвет кнопки
+                backgroundColor: Colors.black,
                 elevation: 10.0,
                 shape: CircleBorder(),
               ),

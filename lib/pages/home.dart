@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:luna/pages/cataloge_page.dart';
 import 'package:luna/pages/profile.dart';
-import 'package:luna/pages/shopping_cart.dart';
+import 'package:luna/pages/recycle_bin.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
-  final pages = [CatalogePage(), ShoppingCart(), Profile()];
+  final pages = [CatalogePage(), RecycleBinPage(), Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

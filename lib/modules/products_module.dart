@@ -74,7 +74,7 @@ class ProductsLv extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    document['cost'],
+                                    document['cost'].toString(),
                                     style: TextStyle(
                                         color: Color(0xff859177),
                                         fontSize: 22,
