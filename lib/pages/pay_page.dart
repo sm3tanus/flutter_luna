@@ -24,7 +24,7 @@ class _PayPageState extends State<PayPage> {
   @override
   void initState() {
     super.initState();
-    _checkRecycle(); // Начинаем получение данных
+    _checkRecycle();
   }
 
   Future<void> _checkRecycle() async {
@@ -39,21 +39,24 @@ class _PayPageState extends State<PayPage> {
           result.docs.where((doc) => doc['id'] == widget.selectedRecycle['id']);
       currentCount = recycle.first['count'];
       cost = recycle.first['cost'];
-      if (cost >= 5000 && delivery == true) {
-        recycle.forEach((docSnapshot) {
-          currentCostDelivery = docSnapshot['costDelivery'];
-          currentCostDelivery = (cost * 0.1).toInt();
-          docSnapshot.reference.update({'costDelivery': currentCostDelivery});
-          _checkRecycle();
-        });
-      } else{
-        recycle.forEach((docSnapshot) {
-          currentCostDelivery = docSnapshot['costDelivery'];
-          currentCostDelivery = 0;
-          docSnapshot.reference.update({'costDelivery': currentCostDelivery});
-          _checkRecycle();
-        });
+      currentCostDelivery = recycle.first['costDelivery'];
+      if (cost >= 5000 && delivery) {
+        currentCostDelivery = (cost * 0.1).toInt();
+        cost = cost + currentCostDelivery;
+      } else if (cost >= 5000 && !delivery){
+        currentCostDelivery = 0;
+        cost = cost - currentCostDelivery;
       }
+      if (currentCount <= 0) {
+        currentCount = 1;
+      }
+      recycle.forEach((docSnapshot) {
+        docSnapshot.reference.update({
+          'costDelivery': currentCostDelivery,
+          'count': currentCount,
+          'cost': cost
+        });
+      });
     });
   }
 
@@ -120,7 +123,7 @@ class _PayPageState extends State<PayPage> {
                                           ),
                                         ),
                                         Text(
-                                          "р",
+                                          " ₽",
                                           style: const TextStyle(
                                             fontSize: 22,
                                             color: Colors.black,
@@ -317,7 +320,7 @@ class _PayPageState extends State<PayPage> {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: Text(
-                                  'ул.Беломорская, д.81',
+                                  'ул.Лукина, д.81',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
@@ -330,7 +333,7 @@ class _PayPageState extends State<PayPage> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -365,9 +368,6 @@ class _PayPageState extends State<PayPage> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -382,14 +382,86 @@ class _PayPageState extends State<PayPage> {
                             ),
                           ),
                           Checkbox(
+                              checkColor: Colors.black,
+                              fillColor:
+                                  MaterialStatePropertyAll(Color(0xffb8b5a2)),
                               value: delivery,
                               onChanged: (value) {
                                 setState(() {
                                   delivery = value!;
+                                  _checkRecycle();
                                 });
                               }),
                         ],
                       )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
+              Card(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xffd8d9ce),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  margin: EdgeInsets.only(left: 20, top: 10, right: 20),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          Text(
+                            'Товары, ${currentCount.toString()}шт.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          Text(
+                            'Итого: ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
+                          ),
+                          Text(
+                            '${cost.toString()} ₽',
+                            style: TextStyle(
+                              color: Color(0xff859177),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
                     ],
                   ),
                 ),

@@ -75,7 +75,7 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                                 ),
                               ),
                               Text(
-                                "р",
+                                " ₽",
                                 style: const TextStyle(
                                   fontSize: 22,
                                   color: Colors.black,

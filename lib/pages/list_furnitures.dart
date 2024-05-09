@@ -80,7 +80,7 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
                         ),
                       ),
                       Text(
-                        "р",
+                        " ₽",
                         style: const TextStyle(
                           fontSize: 22,
                           color: Colors.black,

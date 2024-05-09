@@ -28,7 +28,6 @@ class DataCollection {
         'inRecycle': true,
         'count': 1,
         'costDelivery': 0,
-
       });
     } catch (e) {
       print('Error adding data to nested collection: $e');
