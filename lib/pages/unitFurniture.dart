@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:luna/dataBase/collections/dataCollection.dart';
 import 'package:luna/pages/list_furnitures.dart';
+import 'package:luna/pages/pay_page.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 import '../dataBase/user_service/getUser.dart';
@@ -122,7 +123,6 @@ class _InfoFurnitureState extends State<InfoFurniture> {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                 color: Color(0xffd8d9ce),
                 borderRadius: BorderRadius.all(
@@ -147,26 +147,6 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.thumb_up,
-                              size: 20,
-                              color: Color(0xff707d60),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.thumb_down,
-                              size: 20,
-                              color: Color(0xffa67f5d),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -313,6 +293,9 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.05,
+                  ),
                 ],
               ),
             )
@@ -377,7 +360,24 @@ class _InfoFurnitureState extends State<InfoFurniture> {
               width: 80,
               height: 80,
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    await data.addDataCollection(widget.selectedFurniture);
+                    setState(() {
+                      recycle = true;
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PayPage(
+                          selectedRecycle: widget.selectedFurniture,
+                        ),
+                      ),
+                    );
+                  } catch (e) {
+                    print('no result');
+                  }
+                },
                 child: Text(
                   'Купить',
                   style: TextStyle(color: Color(0xffb8b5a2)),

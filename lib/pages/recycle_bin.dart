@@ -98,7 +98,6 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                 Icon(Icons.keyboard_arrow_right, size: 35),
               ],
             ),
-            
           ],
         ),
       ),
@@ -114,28 +113,47 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
             child: StreamBuilder(
               stream: filter,
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text('');
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.5),
+                        Text(
+                          'Вы еще ничего не добавили.',
+                          style: TextStyle(
+                              fontSize: 22,
+                              color: const Color.fromARGB(255, 90, 90, 90),
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ],
+                    ),
                   );
                 } else {
                   var filteredDocs = snapshot.data;
                   return ListView.builder(
+                    shrinkWrap: true,
                     itemCount: filteredDocs?.length,
                     itemBuilder: (context, index) {
                       final furniture = filteredDocs?[index].data();
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            selectedFurniture = furniture;
+                          setState(
+                            () {
+                              selectedFurniture = furniture;
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PayPage(selectedRecycle: selectedFurniture,)
-                              ),
-                            );
-                          });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PayPage(
+                                    selectedRecycle: selectedFurniture,
+                                  ),
+                                ),
+                              );
+                            },
+                          );
                         },
                         child: furnitureCard(context, furniture),
                       );

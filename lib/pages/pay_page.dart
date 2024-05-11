@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import 'package:luna/pages/unitFurniture.dart';
 
 import '../dataBase/user_service/getUser.dart';
 
@@ -16,18 +17,23 @@ class PayPage extends StatefulWidget {
 
 class _PayPageState extends State<PayPage> {
   late Future<List<DocumentSnapshot>> filter;
-  var recycle;
+  late var recycle;
   int currentCount = 0;
+  int thisCost = 0;
   int currentCostDelivery = 0;
   int cost = 0;
   bool delivery = true;
+  int secondDel = 0;
+
   @override
   void initState() {
     super.initState();
-    _checkRecycle();
+    thisCost = widget.selectedRecycle['cost'];
+
+    _loadData();
   }
 
-  Future<void> _checkRecycle() async {
+  Future<void> _loadData() async {
     final result = await FirebaseFirestore.instance
         .collection('users')
         .doc(getUser()?.uid)
@@ -40,21 +46,16 @@ class _PayPageState extends State<PayPage> {
       currentCount = recycle.first['count'];
       cost = recycle.first['cost'];
       currentCostDelivery = recycle.first['costDelivery'];
-      if (cost >= 5000 && delivery) {
-        currentCostDelivery = (cost * 0.1).toInt();
-        cost = cost + currentCostDelivery;
-      } else if (cost >= 5000 && !delivery){
-        currentCostDelivery = 0;
-        cost = cost - currentCostDelivery;
-      }
-      if (currentCount <= 0) {
-        currentCount = 1;
-      }
+    });
+  }
+
+  Future<void> _checkRecycle() async {
+    setState(() {
       recycle.forEach((docSnapshot) {
         docSnapshot.reference.update({
-          'costDelivery': currentCostDelivery,
           'count': currentCount,
-          'cost': cost
+          'costDelivery': currentCostDelivery,
+          'cost': cost,
         });
       });
     });
@@ -67,85 +68,135 @@ class _PayPageState extends State<PayPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Card(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xffd8d9ce),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(125),
-                    ),
-                  ),
-                  margin: EdgeInsets.only(left: 20, top: 10, right: 20),
-                  child: Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
-                            child: Image.network(
-                              widget.selectedRecycle['image'],
-                              fit: BoxFit.cover,
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.width * 0.4,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            width: 160,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.selectedRecycle['name'],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          widget.selectedRecycle['cost']
-                                              .toString(),
-                                          style: const TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xff707d60),
-                                          ),
-                                        ),
-                                        Text(
-                                          " ₽",
-                                          style: const TextStyle(
-                                            fontSize: 22,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  widget.selectedRecycle['color'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.04,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.popAndPushNamed(context, '/');
+                        },
+                        icon: Icon(
+                          Icons.keyboard_backspace,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.popAndPushNamed(context, '/');
+                        },
+                        icon: Icon(
+                          Icons.home,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.04,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => InfoFurniture(
+                        selectedFurniture: widget.selectedRecycle,
+                        type: widget.selectedRecycle['typeRoom'],
+                      ),
+                    ),
+                  );
+                },
+                child: Card(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xffd8d9ce),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(125),
+                      ),
+                    ),
+                    margin: EdgeInsets.only(left: 20, top: 10, right: 20),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100)),
+                              child: Image.network(
+                                widget.selectedRecycle['image'],
+                                fit: BoxFit.cover,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: MediaQuery.of(context).size.width * 0.4,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              width: 160,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.selectedRecycle['name'],
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            widget.selectedRecycle['cost']
+                                                .toString(),
+                                            style: const TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xff707d60),
+                                            ),
+                                          ),
+                                          Text(
+                                            " ₽",
+                                            style: const TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    widget.selectedRecycle['color'],
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -204,15 +255,14 @@ class _PayPageState extends State<PayPage> {
                                   ),
                                 ),
                                 child: IconButton(
-                                  onPressed: () async {
+                                  onPressed: () {
                                     setState(() {
-                                      recycle.forEach((docSnapshot) {
-                                        int currentCount = docSnapshot['count'];
+                                      if (currentCount > 1) {
                                         currentCount--;
-                                        docSnapshot.reference
-                                            .update({'count': currentCount});
+                                        currentCostDelivery -= 500;
+                                        cost -= thisCost + 500;
                                         _checkRecycle();
-                                      });
+                                      }
                                     });
                                   },
                                   icon: Icon(
@@ -242,15 +292,12 @@ class _PayPageState extends State<PayPage> {
                                   ),
                                 ),
                                 child: IconButton(
-                                  onPressed: () async {
+                                  onPressed: () {
                                     setState(() {
-                                      recycle.forEach((docSnapshot) {
-                                        int currentCount = docSnapshot['count'];
-                                        currentCount++;
-                                        docSnapshot.reference
-                                            .update({'count': currentCount});
-                                        _checkRecycle();
-                                      });
+                                      currentCount++;
+                                      currentCostDelivery += 500;
+                                      cost += thisCost + 500;
+                                      _checkRecycle();
                                     });
                                   },
                                   icon: Icon(
@@ -368,32 +415,9 @@ class _PayPageState extends State<PayPage> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.05,
-                          ),
-                          Text(
-                            'Доставка:',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Checkbox(
-                              checkColor: Colors.black,
-                              fillColor:
-                                  MaterialStatePropertyAll(Color(0xffb8b5a2)),
-                              value: delivery,
-                              onChanged: (value) {
-                                setState(() {
-                                  delivery = value!;
-                                  _checkRecycle();
-                                });
-                              }),
-                        ],
-                      )
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
                     ],
                   ),
                 ),

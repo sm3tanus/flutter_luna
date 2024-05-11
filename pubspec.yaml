@@ -47,6 +47,7 @@ dependencies:
   provider: ^6.1.2
   webview_flutter: ^4.7.0
   babylonjs_viewer: ^1.0.1
+  percent_indicator: ^4.2.3
 
 
 dev_dependencies:

@@ -15,7 +15,6 @@ class DataCollection {
         'id': docs['id'],
         'availible': docs['availible'],
         'color': docs['color'],
-        'cost': docs['cost'],
         'description': docs['description'],
         'image': docs['image'],
         'manufacturer': docs['manufacturer'],
@@ -27,7 +26,9 @@ class DataCollection {
         'paid': false,
         'inRecycle': true,
         'count': 1,
-        'costDelivery': 0,
+        'costDelivery': docs['cost'] >= 5000 ? 500 : 0,
+        'cost': docs['cost'] >= 5000 ? docs['cost'] + 500 : docs['cost'],
+        'sale': 0,
       });
     } catch (e) {
       print('Error adding data to nested collection: $e');
@@ -46,4 +47,5 @@ class DataCollection {
       print('Error delete data $e');
     }
   }
+
 }

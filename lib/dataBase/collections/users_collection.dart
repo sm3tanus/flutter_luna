@@ -13,6 +13,7 @@ class UsersCollection {
         'name': name,
         'image': image,
         'password': password,
+        'sale': 0,
       });
     } catch (e) {
       return;

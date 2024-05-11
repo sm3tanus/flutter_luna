@@ -5,6 +5,7 @@ import 'package:luna/dataBase/user_service/service.dart';
 import 'package:luna/modules/cataloge_module.dart';
 import 'package:luna/modules/drawer_module.dart';
 import 'package:luna/modules/products_module.dart';
+import 'package:luna/pages/list_furnitures.dart';
 
 class CatalogePage extends StatefulWidget {
   const CatalogePage({Key? key}) : super(key: key);
@@ -101,17 +102,33 @@ class _CatalogePageState extends State<CatalogePage> {
                           color: Color(0xff859177),
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.center,
-                          cursorColor: Colors.black,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.search),
-                            prefixIconColor: Colors.black,
-                            border: InputBorder.none,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ListFurnituresPage(
+                                  type: '',
+                                ),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.search, color: Colors.black),
+                                SizedBox(width: 10),
+                                Text(
+                                  'Поиск',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.italic
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -128,7 +145,7 @@ class _CatalogePageState extends State<CatalogePage> {
                               fontWeight: FontWeight.w900),
                         ),
                       ),
-                     Cataloge_Module(),
+                      Cataloge_Module(),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.1,
                         child: Text(
