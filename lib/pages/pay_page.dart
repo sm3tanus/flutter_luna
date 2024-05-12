@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:luna/dataBase/collections/dataCollection.dart';
 
 import 'package:luna/pages/unitFurniture.dart';
+import 'package:toast/toast.dart';
 
 import '../dataBase/user_service/getUser.dart';
 
@@ -24,12 +26,18 @@ class _PayPageState extends State<PayPage> {
   int cost = 0;
   bool delivery = true;
   int secondDel = 0;
+  int sale = 0;
+  DataCollection data = DataCollection();
+  int countUser = 0;
+  int totalCount = 0;
+  double percent = 0.0;
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
     thisCost = widget.selectedRecycle['cost'];
-
+    
     _loadData();
   }
 
@@ -40,29 +48,32 @@ class _PayPageState extends State<PayPage> {
         .collection('recycleBin')
         .get();
 
+    final users = await FirebaseFirestore.instance.collection('users').get();
+
     setState(() {
-      recycle =
-          result.docs.where((doc) => doc['id'] == widget.selectedRecycle['id']);
-      currentCount = recycle.first['count'];
-      cost = recycle.first['cost'];
-      currentCostDelivery = recycle.first['costDelivery'];
+      recycle = result.docs
+          .firstWhere((doc) => doc['id'] == widget.selectedRecycle['id']);
+      final userDoc =
+          users.docs.firstWhere((doc) => doc['uid'] == getUser()?.uid);
+
+      sale = userDoc.data()['sale'];
+      currentCount = recycle['count'];
+      cost = recycle['cost'];
+      currentCostDelivery = recycle['costDelivery'];
     });
   }
 
-  Future<void> _checkRecycle() async {
-    setState(() {
-      recycle.forEach((docSnapshot) {
-        docSnapshot.reference.update({
-          'count': currentCount,
-          'costDelivery': currentCostDelivery,
-          'cost': cost,
-        });
-      });
+  _checkRecycle() {
+    recycle.reference.update({
+      'count': currentCount,
+      'costDelivery': currentCostDelivery,
+      'cost': cost,
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -245,7 +256,7 @@ class _PayPageState extends State<PayPage> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.03,
                               ),
                               Container(
                                 decoration: BoxDecoration(
@@ -264,6 +275,7 @@ class _PayPageState extends State<PayPage> {
                                         _checkRecycle();
                                       }
                                     });
+                                   
                                   },
                                   icon: Icon(
                                     Icons.exposure_minus_1,
@@ -299,6 +311,7 @@ class _PayPageState extends State<PayPage> {
                                       cost += thisCost + 500;
                                       _checkRecycle();
                                     });
+                                    
                                   },
                                   icon: Icon(
                                     Icons.plus_one,
@@ -362,7 +375,7 @@ class _PayPageState extends State<PayPage> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.03,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
@@ -398,7 +411,7 @@ class _PayPageState extends State<PayPage> {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.03,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
@@ -448,7 +461,7 @@ class _PayPageState extends State<PayPage> {
                             width: MediaQuery.of(context).size.width * 0.05,
                           ),
                           Text(
-                            'Товары, ${currentCount.toString()}шт.',
+                            'Товары,  ${currentCount.toString()}шт.',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -462,11 +475,47 @@ class _PayPageState extends State<PayPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.05,
+                              ),
+                              Text(
+                                'Ваша скидка:',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.03,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Text(
+                                  '${sale.toString()}%',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                  softWrap: true,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.05,
                           ),
                           Text(
-                            'Итого: ',
+                            'Итого:  ',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -487,6 +536,51 @@ class _PayPageState extends State<PayPage> {
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
                     ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.08,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final res = await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(getUser()?.uid)
+                        .collection('recycleBin')
+                        .get();
+                    var f = res.docs.firstWhere(
+                        (doc) => doc['id'] == widget.selectedRecycle['id']);
+                    Toast.show('Оплачено. Ваш заказ теперь в профиле.');
+                    _checkRecycle();
+                    print(cost.toString());
+                    await data.addPaidCollection(f);
+                    await data.deleteDataCollection(f);
+                    Navigator.popAndPushNamed(context, '/');
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color(0xff707d60),
+                    ),
+                    elevation: MaterialStateProperty.all<double>(0),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    'ОПЛАТИТЬ',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

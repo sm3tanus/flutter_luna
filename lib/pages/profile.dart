@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:luna/dataBase/user_service/getUser.dart';
+import 'package:luna/pages/unitFurniture.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var users;
+  dynamic selectedFurniture;
   @override
   void initState() {
     users = FirebaseFirestore.instance.collection('users').snapshots().map(
@@ -25,11 +27,11 @@ class _ProfileState extends State<Profile> {
   var filter = FirebaseFirestore.instance
       .collection('users')
       .doc(getUser()?.uid)
-      .collection('recycleBin')
+      .collection('paid')
       .snapshots()
       .map(
         (event) => event.docs
-            .where((element) => element['id'] != "" && element['paid'] == true)
+            .where((element) => element['id'] != "")
             .toList(),
       );
 
@@ -97,6 +99,13 @@ class _ProfileState extends State<Profile> {
                       ),
                       Text(
                         docs['color'],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                      ),
+                       Text(
+                        '${docs['count'].toString()}шт.',
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -199,7 +208,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     TextButton(
                       onPressed: () {
-                        
+                        Navigator.popAndPushNamed(context, '/question');
                       },
                       child: Text(
                         'Вопросы',
@@ -281,11 +290,30 @@ class _ProfileState extends State<Profile> {
                   } else {
                     var filteredDocs = snapshot.data;
                     return ListView.builder(
-                      shrinkWrap: true, 
+                      shrinkWrap: true,
                       itemCount: filteredDocs?.length,
                       itemBuilder: (context, index) {
                         final furniture = filteredDocs?[index].data();
-                        return furnitureCard(context, furniture);
+                        return GestureDetector(
+                          onTap: () {
+                            setState(
+                              () {
+                                selectedFurniture = furniture;
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => InfoFurniture(
+                                      selectedFurniture: selectedFurniture,
+                                      type: selectedFurniture['typeRoom'],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: furnitureCard(context, furniture),
+                        );
                       },
                     );
                   }
