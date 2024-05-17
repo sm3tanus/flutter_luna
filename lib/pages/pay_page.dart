@@ -131,7 +131,7 @@ class _PayPageState extends State<PayPage> {
                 child: Card(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xffd8d9ce),
+                      color: Colors.white,
                       borderRadius: BorderRadius.all(
                         Radius.circular(125),
                       ),
@@ -178,9 +178,9 @@ class _PayPageState extends State<PayPage> {
                                             widget.selectedRecycle['cost']
                                                 .toString(),
                                             style: const TextStyle(
-                                              fontSize: 22,
+                                              fontSize: 30,
                                               fontWeight: FontWeight.bold,
-                                              color: Color(0xff707d60),
+                                              color: Color(0xffff5d00),
                                             ),
                                           ),
                                           Text(
@@ -217,7 +217,7 @@ class _PayPageState extends State<PayPage> {
               Card(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xffd8d9ce),
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(25),
                     ),
@@ -260,7 +260,7 @@ class _PayPageState extends State<PayPage> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(105, 72, 83, 69),
+                                  color: Color.fromARGB(105, 97, 97, 97),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -298,7 +298,7 @@ class _PayPageState extends State<PayPage> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(105, 72, 83, 69),
+                                  color: Color.fromARGB(105, 97, 97, 97),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -336,7 +336,7 @@ class _PayPageState extends State<PayPage> {
               Card(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xffd8d9ce),
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(25),
                     ),
@@ -441,7 +441,7 @@ class _PayPageState extends State<PayPage> {
               Card(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xffd8d9ce),
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(25),
                     ),
@@ -522,13 +522,25 @@ class _PayPageState extends State<PayPage> {
                               fontSize: 30,
                             ),
                           ),
-                          Text(
-                            '${cost.toString()} ₽',
-                            style: TextStyle(
-                              color: Color(0xff859177),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                '${cost.toString()}',
+                                style: TextStyle(
+                                  color: Color(0xffff5d00),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                ),
+                              ),
+                              Text(
+                                ' ₽',
+                                style: TextStyle(
+                                  color: Colors.black,
+                              
+                                  fontSize: 30,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -562,11 +574,11 @@ class _PayPageState extends State<PayPage> {
                     Navigator.popAndPushNamed(context, '/');
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Color(0xff707d60),
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                      Color(0xffff5d00),
                     ),
-                    elevation: MaterialStateProperty.all<double>(0),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    elevation: WidgetStateProperty.all<double>(0),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),

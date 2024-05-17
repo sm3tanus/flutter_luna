@@ -38,14 +38,14 @@ class _Cataloge_ModuleState extends State<Cataloge_Module> {
               height: 200,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xffa69e5d),
+                color: Color(0xff171717),
               ),
               child: Center(
                 child: Text(
                   'Кухня',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Color(0xfff0f0f0),
                   ),
                 ),
               ),
@@ -71,14 +71,14 @@ class _Cataloge_ModuleState extends State<Cataloge_Module> {
               height: 200,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xffa6965d),
+                color: Color(0xffff5d00),
               ),
               child: Center(
                 child: Text(
                   'Гостиная',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -104,14 +104,14 @@ class _Cataloge_ModuleState extends State<Cataloge_Module> {
               height: 200,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xffa68f5d),
+                color: Colors.white,
               ),
               child: Center(
                 child: Text(
                   'Спальня',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -137,14 +137,14 @@ class _Cataloge_ModuleState extends State<Cataloge_Module> {
               height: 200,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xffa6885d),
+                color: Color(0xff171717),
               ),
               child: Center(
                 child: Text(
                   'Ванная',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color:  Color(0xfff0f0f0),
                   ),
                 ),
               ),
@@ -170,14 +170,14 @@ class _Cataloge_ModuleState extends State<Cataloge_Module> {
               height: 200,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xffa67f5d),
+                color: Color(0xffff5d00),
               ),
               child: Center(
                 child: Text(
                   'Гардероб',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
               ),

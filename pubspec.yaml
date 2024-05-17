@@ -48,6 +48,7 @@ dependencies:
   webview_flutter: ^4.7.0
   babylonjs_viewer: ^1.0.1
   percent_indicator: ^4.2.3
+  http: ^1.2.1
 
 
 dev_dependencies:
@@ -58,7 +59,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: https://firebasestorage.googleapis.com/v0/b/luna-a728b.appspot.com/o/logo.png?alt=media&token=fe8f3e9c-cdd6-4d15-a099-797950074e1a
+  image_path: https://firebasestorage.googleapis.com/v0/b/luna-a728b.appspot.com/o/logo.png?alt=media&token=1b40bcd6-c3d3-4242-98a4-087febae3f2f
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

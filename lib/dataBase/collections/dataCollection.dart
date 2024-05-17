@@ -75,7 +75,7 @@ class DataCollection {
       print('Error adding data to nested collection: $e');
     }
   }
-
+  
   Future<void> addPaidCollection(dynamic docs) async {
   
       await _firestore

@@ -51,8 +51,9 @@ class _InfoFurnitureState extends State<InfoFurniture> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.04,
@@ -71,15 +72,6 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                   icon: Icon(
                     Icons.keyboard_backspace,
                     color: Colors.black,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 50),
-                  child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/luna-a728b.appspot.com/o/vetka.png?alt=media&token=dfa43c33-7bad-4539-8c13-84c382b6d134",
-                    fit: BoxFit.fill,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: 100,
                   ),
                 ),
               ],
@@ -124,7 +116,7 @@ class _InfoFurnitureState extends State<InfoFurniture> {
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
-                color: Color(0xffd8d9ce),
+                color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 ),
@@ -158,9 +150,9 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.68,
-                        height: 2,
+                        height: 1,
                         decoration: BoxDecoration(
-                          color: Color(0xffb8b5a2),
+                          color: Colors.black,
                           borderRadius: BorderRadius.all(
                             Radius.circular(25),
                           ),
@@ -263,9 +255,9 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.68,
-                        height: 2,
+                        height: 1,
                         decoration: BoxDecoration(
-                          color: Color(0xffb8b5a2),
+                          color: Colors.black,
                           borderRadius: BorderRadius.all(
                             Radius.circular(25),
                           ),
@@ -303,7 +295,7 @@ class _InfoFurnitureState extends State<InfoFurniture> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color(0xff707d60),
+        color: Color(0xff171717),
         height: 100,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -324,9 +316,7 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                   icon: Icon(
                     Icons.local_grocery_store_outlined,
                     size: 30,
-                    color: recycle
-                        ? Color.fromARGB(255, 255, 166, 0)
-                        : Colors.black,
+                    color: recycle ? Color(0xffff5d00) : Color(0xfff0f0f0),
                   ),
                 ),
                 Visibility(
@@ -340,7 +330,7 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                     },
                     icon: Icon(
                       Icons.remove,
-                      color: Color.fromARGB(255, 255, 166, 0),
+                      color: Color(0xffff5d00),
                     ),
                   ),
                 ),
@@ -349,7 +339,7 @@ class _InfoFurnitureState extends State<InfoFurniture> {
             Text(
               widget.selectedFurniture['cost'].toString(),
               style: TextStyle(
-                  color: Color(0xffb8b5a2),
+                  color: Colors.white,
                   fontSize: 32,
                   fontWeight: FontWeight.bold),
             ),
@@ -380,9 +370,10 @@ class _InfoFurnitureState extends State<InfoFurniture> {
                 },
                 child: Text(
                   'Купить',
-                  style: TextStyle(color: Color(0xffb8b5a2)),
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
                 ),
-                backgroundColor: Colors.black,
+                backgroundColor: Color(0xffff5d00),
                 elevation: 10.0,
                 shape: CircleBorder(),
               ),

@@ -33,7 +33,7 @@ class _RegPageState extends State<RegPage> {
                 ),
                 Text(
                   "L U N A",
-                  style: TextStyle(color: Colors.black, fontSize: 50),
+                  style: TextStyle(color: Colors.black, fontSize: 50, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -43,22 +43,22 @@ class _RegPageState extends State<RegPage> {
                   width: MediaQuery.of(context).size.width / 1.1,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Color(0xff859177),
+                    color: Color(0xff171717),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: TextField(
-                    cursorColor: Colors.black,
+                    cursorColor: Color(0xfff0f0f0),
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
+                        color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
                     controller: emailController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'E-mail',
                       prefixIcon: Icon(Icons.email),
-                      prefixIconColor: Colors.black,
+                      prefixIconColor: Color(0xfff0f0f0),
                       labelStyle: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color(0xfff0f0f0),
                       ),
                       border: InputBorder.none,
                     ),
@@ -69,22 +69,22 @@ class _RegPageState extends State<RegPage> {
                   width: MediaQuery.of(context).size.width / 1.1,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Color(0xff859177),
+                    color: Color(0xff171717),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: TextField(
-                    cursorColor: Colors.black,
+                    cursorColor: Color(0xfff0f0f0),
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
+                        color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
                     controller: nameController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'Name',
                       prefixIcon: Icon(Icons.account_circle),
-                      prefixIconColor: Colors.black,
+                      prefixIconColor: Color(0xfff0f0f0),
                       labelStyle: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color(0xfff0f0f0),
                       ),
                       border: InputBorder.none,
                     ),
@@ -95,13 +95,13 @@ class _RegPageState extends State<RegPage> {
                   width: MediaQuery.of(context).size.width / 1.1,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Color(0xff859177),
+                    color: Color(0xff171717),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: TextField(
-                    cursorColor: Colors.black,
+                    cursorColor: Color(0xfff0f0f0),
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
+                        color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
                     controller: passwordController,
                     obscureText: !visibility,
                     decoration: InputDecoration(
@@ -116,12 +116,12 @@ class _RegPageState extends State<RegPage> {
                               visibility = !visibility;
                             });
                           }),
-                      suffixIconColor: Colors.black,
-                      prefixIconColor: Colors.black,
+                      suffixIconColor: Color(0xfff0f0f0),
+                      prefixIconColor: Color(0xfff0f0f0),
                       labelText: 'Пароль',
                       labelStyle: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color(0xfff0f0f0),
                       ),
                       border: InputBorder.none,
                     ),
@@ -132,13 +132,13 @@ class _RegPageState extends State<RegPage> {
                   width: MediaQuery.of(context).size.width / 1.1,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Color(0xff859177),
+                    color: Color(0xff171717),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: TextField(
-                    cursorColor: Colors.black,
+                    cursorColor: Color(0xfff0f0f0),
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
+                        color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
                     controller: passwordAcceptController,
                     obscureText: !visibility,
                     decoration: InputDecoration(
@@ -153,12 +153,12 @@ class _RegPageState extends State<RegPage> {
                               visibility2 = !visibility2;
                             });
                           }),
-                      suffixIconColor: Colors.black,
+                      suffixIconColor: Color(0xfff0f0f0),
                       prefixIcon: Icon(Icons.password),
-                      prefixIconColor: Colors.black,
+                      prefixIconColor: Color(0xfff0f0f0),
                       labelStyle: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color(0xfff0f0f0),
                       ),
                       border: InputBorder.none,
                     ),
@@ -199,7 +199,7 @@ class _RegPageState extends State<RegPage> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xff656e3d),
+                        Color(0xffff5d00),
                       ),
                       elevation: MaterialStateProperty.all<double>(0),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

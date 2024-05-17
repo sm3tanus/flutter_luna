@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:luna/dataBase/user_service/getUser.dart';
 import 'package:luna/dataBase/user_service/service.dart';
 import 'package:luna/modules/cataloge_module.dart';
-import 'package:luna/modules/drawer_module.dart';
 import 'package:luna/modules/products_module.dart';
 import 'package:luna/pages/list_furnitures.dart';
 
@@ -62,48 +61,35 @@ class _CatalogePageState extends State<CatalogePage> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Stack(
-                            children: [
-                              Image.network(
-                                "https://firebasestorage.googleapis.com/v0/b/luna-a728b.appspot.com/o/bunner.png?alt=media&token=7ed89568-f611-4f77-a619-ab2f23b4d204",
-                                fit: BoxFit.cover,
-                                width: 100,
-                                height: 200,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                ),
-                                margin: EdgeInsets.only(
-                                  top:
-                                      MediaQuery.of(context).size.height * 0.05,
-                                  left: MediaQuery.of(context).size.width * 0.2,
-                                ),
-                                width: MediaQuery.of(context).size.width / 1.3,
-                                child: Text(
-                                  "Начни свой поиск \nпрямо здесь и сейчас",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.1,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Color(0xff859177),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: InkWell(
                           onTap: () {
+                            FirebaseFirestore.instance
+                                .collection('furniture')
+                                .doc()
+                                .set({
+                              'id': '',
+                              'availible': '',
+                              'color': '',
+                              'description': '',
+                              'image': '',
+                              'manufacturer': '',
+                              'material': '',
+                              'modelUrl': '',
+                              'name': '',
+                              'typeFurniture': '',
+                              'typeRoom': '',
+                              'cost': '',
+                            });
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -117,15 +103,17 @@ class _CatalogePageState extends State<CatalogePage> {
                             padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
                               children: [
-                                Icon(Icons.search, color: Colors.black),
+                                Icon(
+                                  Icons.search,
+                                  color: Color(0xffff5d00),
+                                ),
                                 SizedBox(width: 10),
                                 Text(
                                   'Поиск',
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FontStyle.italic
-                                  ),
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FontStyle.italic),
                                 ),
                               ],
                             ),
@@ -141,8 +129,8 @@ class _CatalogePageState extends State<CatalogePage> {
                           "Каталог",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900),
+                              fontSize: 27,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Cataloge_Module(),
@@ -152,7 +140,7 @@ class _CatalogePageState extends State<CatalogePage> {
                           "Товары",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 27,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -160,12 +148,6 @@ class _CatalogePageState extends State<CatalogePage> {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       ProductsLv(),
-                      IconButton(
-                        onPressed: () {
-                          authService.logOut();
-                        },
-                        icon: Icon(Icons.logout),
-                      ),
                     ],
                   );
                 }
@@ -173,10 +155,6 @@ class _CatalogePageState extends State<CatalogePage> {
             ),
           ),
         ),
-      ),
-      endDrawer: Drawer(
-        backgroundColor: Color(0xffd8d9ce),
-        child: DrawerWidget(),
       ),
     );
   }

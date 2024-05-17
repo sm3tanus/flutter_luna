@@ -21,12 +21,13 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
   @override
   void initState() {
     print(widget.type);
-    if (widget.type != "")
-    {
-          filter = FirebaseFirestore.instance.collection('furniture').snapshots().map(
-        (event) => event.docs
-            .where((element) => element['typeRoom'] == widget.type)
-            .toList());
+    if (widget.type != "") {
+      filter = FirebaseFirestore.instance
+          .collection('furniture')
+          .snapshots()
+          .map((event) => event.docs
+              .where((element) => element['typeRoom'] == widget.type)
+              .toList());
     }
     super.initState();
   }
@@ -35,7 +36,7 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xffd8d9ce),
+          color: Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(125),
           ),
@@ -44,14 +45,14 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              child: Image.network(
-                docs['image'],
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.width * 0.4,
-              ),
+            SizedBox(
+              width: 30,
+            ),
+            Image.network(
+              docs['image'],
+              width: 170,
+              height: 170,
+              fit: BoxFit.fill,
             ),
             SizedBox(
               width: 20,
@@ -74,9 +75,9 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
                       Text(
                         docs['cost'].toString(),
                         style: const TextStyle(
-                          fontSize: 22,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xff707d60),
+                          color: Color(0xffff5d00),
                         ),
                       ),
                       Text(
@@ -126,7 +127,7 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Color(0xff859177),
+                  color: Color(0xff171717),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 child: TextField(
@@ -154,14 +155,14 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
                     }
                   }),
                   textAlignVertical: TextAlignVertical.center,
-                  cursorColor: Colors.black,
+                  cursorColor: Colors.white,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
-                    prefixIconColor: Colors.black,
+                    prefixIconColor: Color(0xffff5d00),
                     border: InputBorder.none,
                   ),
                 ),

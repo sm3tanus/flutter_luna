@@ -18,7 +18,7 @@ class ProductsLv extends StatelessWidget {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
-              final documents = snapshot.data!.docs.take(5);
+              final documents = snapshot.data!.docs;
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data!.docs.length,
@@ -43,47 +43,46 @@ class ProductsLv extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xffd8d9ce),
+                            color: Colors.white,
                           ),
                           child: Column(
                             children: [
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(100)),
-                                child: Image.network(
-                                  document['image'],
-                                  width: 200,
-                                  height: 200,
-                                  fit: BoxFit.fill,
-                                ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.05,
+                              ),
+                              Image.network(
+                                document['image'],
+                                width: 200,
+                                height: 170,
+                                fit: BoxFit.fill,
                               ),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.03,
                               ),
-                              Flexible(
-                                child: Text(
-                                  document['name'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.black,
-                                  ),
+                              Text(
+                                document['name'],
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xff171717),
                                 ),
+                                softWrap: true,
                               ),
                               Row(
                                 children: [
                                   Text(
                                     document['cost'].toString(),
                                     style: TextStyle(
-                                        color: Color(0xff859177),
-                                        fontSize: 22,
+                                        color: Color(0xffff5d00),
+                                        fontSize: 32,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'р',
+                                    ' ₽',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Color(0xff171717),
                                       fontSize: 22,
                                     ),
                                   ),

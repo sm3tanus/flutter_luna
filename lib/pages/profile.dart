@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:luna/dataBase/user_service/getUser.dart';
+import 'package:luna/dataBase/user_service/service.dart';
 import 'package:luna/pages/unitFurniture.dart';
 
 class Profile extends StatefulWidget {
@@ -30,16 +31,14 @@ class _ProfileState extends State<Profile> {
       .collection('paid')
       .snapshots()
       .map(
-        (event) => event.docs
-            .where((element) => element['id'] != "")
-            .toList(),
+        (event) => event.docs.where((element) => element['id'] != "").toList(),
       );
 
   Widget furnitureCard(BuildContext context, dynamic docs) {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xffd8d9ce),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(125),
         ),
         margin: const EdgeInsets.only(left: 20, top: 10, right: 20),
@@ -81,9 +80,9 @@ class _ProfileState extends State<Profile> {
                               Text(
                                 docs['cost'].toString(),
                                 style: const TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 32,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xff707d60),
+                                  color: Color(0xffff5d00),
                                 ),
                               ),
                               const Text(
@@ -104,7 +103,7 @@ class _ProfileState extends State<Profile> {
                           color: Colors.black,
                         ),
                       ),
-                       Text(
+                      Text(
                         '${docs['count'].toString()}шт.',
                         style: const TextStyle(
                           fontSize: 16,
@@ -174,10 +173,23 @@ class _ProfileState extends State<Profile> {
                         Text(
                           getUser()!.email.toString(),
                         ),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.edit))
                       ],
                     )
                   ],
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.27,
+                ),
+                IconButton(
+                  onPressed: () {
+                    AuthService authService = AuthService();
+                    authService.logOut();
+                  },
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    size: 35,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -189,7 +201,7 @@ class _ProfileState extends State<Profile> {
                   width: MediaQuery.of(context).size.width * 0.85,
                   height: 2,
                   decoration: BoxDecoration(
-                    color: Color(0xff707d60),
+                    color: Color(0xffff5d00),
                     borderRadius: BorderRadius.all(
                       Radius.circular(25),
                     ),
@@ -211,7 +223,7 @@ class _ProfileState extends State<Profile> {
                         Navigator.popAndPushNamed(context, '/question');
                       },
                       child: Text(
-                        'Вопросы',
+                        'Обратная связь',
                         style: TextStyle(fontSize: 22),
                       ),
                     ),
@@ -229,36 +241,6 @@ class _ProfileState extends State<Profile> {
                       },
                       child: Text(
                         'Статистика',
-                        style: TextStyle(fontSize: 22),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Контакты',
-                        style: TextStyle(fontSize: 22),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'О компании',
                         style: TextStyle(fontSize: 22),
                       ),
                     ),

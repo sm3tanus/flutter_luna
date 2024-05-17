@@ -25,12 +25,12 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xffd8d9ce),
+          color: Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(125),
           ),
         ),
-        margin: EdgeInsets.only(left: 20, top: 10, right: 20),
+        margin: EdgeInsets.only(left: 20, top: 30, right: 20),
         child: Column(
           children: [
             Row(
@@ -69,9 +69,9 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                               Text(
                                 docs['cost'].toString(),
                                 style: const TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 32,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xff707d60),
+                                  color: Color(0xffff5d00),
                                 ),
                               ),
                               Text(
@@ -79,6 +79,7 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                                 style: const TextStyle(
                                   fontSize: 22,
                                   color: Colors.black,
+                                  
                                 ),
                               ),
                             ],
@@ -95,7 +96,7 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                     ],
                   ),
                 ),
-                Icon(Icons.keyboard_arrow_right, size: 35),
+                Icon(Icons.shopping_bag, size: 30, color: Color(0xffff5d00),),
               ],
             ),
           ],

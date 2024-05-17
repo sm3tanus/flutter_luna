@@ -29,9 +29,9 @@ class _AuthPageState extends State<AuthPage> {
                 Text(
                   "L U N A",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 50
-                  ),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 50),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -40,22 +40,22 @@ class _AuthPageState extends State<AuthPage> {
                   width: MediaQuery.of(context).size.width / 1.1,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Color(0xff859177),
+                    color: Color(0xff171717),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: TextField(
-                    cursorColor: Colors.black,
+                    cursorColor: Color(0xfff0f0f0),
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
+                        color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
                     controller: _emailController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'E-mail',
                       prefixIcon: Icon(Icons.email),
-                      prefixIconColor: Colors.black,
+                      prefixIconColor: Color(0xfff0f0f0),
                       labelStyle: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color(0xfff0f0f0),
                       ),
                       border: InputBorder.none,
                     ),
@@ -68,14 +68,14 @@ class _AuthPageState extends State<AuthPage> {
                   width: MediaQuery.of(context).size.width / 1.1,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Color(0xff859177),
+                    color: Color(0xff171717),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: TextField(
                     obscureText: !visibility,
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
-                    cursorColor: Colors.black,
+                        color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
+                    cursorColor: Color(0xfff0f0f0),
                     controller: _passwordController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -89,12 +89,12 @@ class _AuthPageState extends State<AuthPage> {
                               visibility = !visibility;
                             });
                           }),
-                      suffixIconColor: Colors.black,
+                      suffixIconColor: Color(0xfff0f0f0),
                       prefixIcon: Icon(Icons.password),
-                      prefixIconColor: Colors.black,
+                      prefixIconColor: Color(0xfff0f0f0),
                       labelStyle: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color(0xfff0f0f0),
                       ),
                       border: InputBorder.none,
                     ),
@@ -126,7 +126,7 @@ class _AuthPageState extends State<AuthPage> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xff656e3d),
+                        Color(0xffff5d00),
                       ),
                       elevation: MaterialStateProperty.all<double>(0),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -157,14 +157,6 @@ class _AuthPageState extends State<AuthPage> {
                   },
                   child: Text(
                     'Создать аккаунт',
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/cataloge');
-                  },
-                  child: Text(
-                    'Я гость',
                   ),
                 ),
               ],

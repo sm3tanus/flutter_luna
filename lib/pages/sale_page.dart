@@ -112,13 +112,13 @@ class _SalePageState extends State<SalePage> {
                           animation: true,
                           percent: percent,
                           center: Text(
-                            "${(percent * 100)}%",
+                            "${(percent * 100).floor()}%",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 30.0),
                           ),
                           circularStrokeCap: CircularStrokeCap.round,
-                          progressColor: Color(0xff707d60),
-                          backgroundColor: Color(0xffd8d9ce),
+                          progressColor: Color(0xffff5d00),
+                          backgroundColor: Colors.white,
                         ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
@@ -142,9 +142,9 @@ class _SalePageState extends State<SalePage> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.85,
-                        height: 2,
+                        height: 1,
                         decoration: BoxDecoration(
-                          color: Color(0xff707d60),
+                          color: Colors.black,
                           borderRadius: BorderRadius.all(
                             Radius.circular(25),
                           ),
@@ -154,7 +154,7 @@ class _SalePageState extends State<SalePage> {
                   ),
                   ExpansionTile(
                     shape: Border.all(color: Colors.transparent),
-                    backgroundColor: Color(0xffd8d9ce),
+                    backgroundColor: Colors.white,
                     title: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -173,7 +173,7 @@ class _SalePageState extends State<SalePage> {
                   ),
                   ExpansionTile(
                     shape: Border.all(color: Colors.transparent),
-                    backgroundColor: Color(0xffd8d9ce),
+                    backgroundColor: Colors.white,
                     title: Align(
                       alignment: Alignment.center,
                       child: Text(
