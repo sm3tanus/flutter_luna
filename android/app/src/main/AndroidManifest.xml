@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="luna"
-        android:name="${applicationName}"
+        android:name="luna"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <activity

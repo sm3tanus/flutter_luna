@@ -125,11 +125,11 @@ class _AuthPageState extends State<AuthPage> {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStatePropertyAll(
                         Color(0xffff5d00),
                       ),
-                      elevation: MaterialStateProperty.all<double>(0),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      elevation: WidgetStatePropertyAll(0),
+                      shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(15),

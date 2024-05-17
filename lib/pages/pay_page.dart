@@ -37,7 +37,7 @@ class _PayPageState extends State<PayPage> {
   void initState() {
     super.initState();
     thisCost = widget.selectedRecycle['cost'];
-    
+
     _loadData();
   }
 
@@ -275,7 +275,6 @@ class _PayPageState extends State<PayPage> {
                                         _checkRecycle();
                                       }
                                     });
-                                   
                                   },
                                   icon: Icon(
                                     Icons.exposure_minus_1,
@@ -311,7 +310,6 @@ class _PayPageState extends State<PayPage> {
                                       cost += thisCost + 500;
                                       _checkRecycle();
                                     });
-                                    
                                   },
                                   icon: Icon(
                                     Icons.plus_one,
@@ -536,7 +534,6 @@ class _PayPageState extends State<PayPage> {
                                 ' ₽',
                                 style: TextStyle(
                                   color: Colors.black,
-                              
                                   fontSize: 30,
                                 ),
                               ),
@@ -574,11 +571,9 @@ class _PayPageState extends State<PayPage> {
                     Navigator.popAndPushNamed(context, '/');
                   },
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                      Color(0xffff5d00),
-                    ),
-                    elevation: WidgetStateProperty.all<double>(0),
-                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    backgroundColor: WidgetStatePropertyAll(Color(0xffff5d00),),
+                    elevation: WidgetStatePropertyAll(0),
+                    shape: WidgetStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),

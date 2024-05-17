@@ -37,17 +37,13 @@ class _ListFurnituresPageState extends State<ListFurnituresPage> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(125),
-          ),
+          borderRadius: BorderRadius.circular(25),
         ),
         margin: EdgeInsets.only(left: 20, top: 10, right: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 30,
-            ),
+            
             Image.network(
               docs['image'],
               width: 170,

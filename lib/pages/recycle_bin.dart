@@ -27,7 +27,7 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
-            Radius.circular(125),
+            Radius.circular(25),
           ),
         ),
         margin: EdgeInsets.only(left: 20, top: 30, right: 20),
@@ -79,7 +79,6 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                                 style: const TextStyle(
                                   fontSize: 22,
                                   color: Colors.black,
-                                  
                                 ),
                               ),
                             ],
@@ -93,10 +92,14 @@ class _RecycleBinPageState extends State<RecycleBinPage> {
                           color: Colors.black,
                         ),
                       ),
+                      Icon(
+                        Icons.shopping_bag,
+                        size: 30,
+                        color: Color(0xffff5d00),
+                      ),
                     ],
                   ),
                 ),
-                Icon(Icons.shopping_bag, size: 30, color: Color(0xffff5d00),),
               ],
             ),
           ],

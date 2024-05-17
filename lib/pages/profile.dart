@@ -39,7 +39,7 @@ class _ProfileState extends State<Profile> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(125),
+          borderRadius: BorderRadius.circular(25),
         ),
         margin: const EdgeInsets.only(left: 20, top: 10, right: 20),
         child: Column(
@@ -113,7 +113,6 @@ class _ProfileState extends State<Profile> {
                     ],
                   ),
                 ),
-                const Icon(Icons.keyboard_arrow_right, size: 35),
               ],
             ),
           ],
@@ -178,7 +177,7 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.27,
+                  width: MediaQuery.of(context).size.width * 0.2,
                 ),
                 IconButton(
                   onPressed: () {
@@ -191,6 +190,7 @@ class _ProfileState extends State<Profile> {
                     color: Colors.black,
                   ),
                 ),
+                
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),

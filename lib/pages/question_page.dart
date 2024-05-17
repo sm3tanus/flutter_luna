@@ -96,11 +96,11 @@ class _QuestionPageState extends State<QuestionPage> {
             SizedBox(height: 20.0),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
+                backgroundColor: WidgetStatePropertyAll(
                   Color(0xffff5d00),
                 ),
-                elevation: WidgetStateProperty.all<double>(0),
-                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                elevation:WidgetStatePropertyAll(0),
+                shape: WidgetStatePropertyAll(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(25),

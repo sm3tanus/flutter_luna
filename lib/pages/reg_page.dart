@@ -4,21 +4,39 @@ import 'package:luna/dataBase/user_service/service.dart';
 import 'package:toast/toast.dart';
 
 class RegPage extends StatefulWidget {
-  const RegPage({super.key});
+  const RegPage({Key? key}) : super(key: key);
 
   @override
   State<RegPage> createState() => _RegPageState();
 }
 
 class _RegPageState extends State<RegPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordAcceptController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  late TextEditingController passwordAcceptController;
+  late TextEditingController nameController;
   UsersCollection usersCollection = UsersCollection();
   AuthService authService = AuthService();
   bool visibility = false;
   bool visibility2 = false;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordAcceptController = TextEditingController();
+    nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordAcceptController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +51,10 @@ class _RegPageState extends State<RegPage> {
                 ),
                 Text(
                   "L U N A",
-                  style: TextStyle(color: Colors.black, fontSize: 50, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -140,7 +161,7 @@ class _RegPageState extends State<RegPage> {
                     style: TextStyle(
                         color: Color(0xfff0f0f0), fontWeight: FontWeight.w600),
                     controller: passwordAcceptController,
-                    obscureText: !visibility,
+                    obscureText: !visibility2,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'Повторите пароль',
@@ -198,21 +219,16 @@ class _RegPageState extends State<RegPage> {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xffff5d00),
-                      ),
-                      elevation: MaterialStateProperty.all<double>(0),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      backgroundColor: WidgetStatePropertyAll(Color(0xffff5d00),),
+                      elevation: WidgetStatePropertyAll(0),
+                      shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all<Size>(
-                        Size(250,
-                            50),
-                      ),
+                      minimumSize: WidgetStatePropertyAll(Size(250, 50),),
                     ),
                     child: Text(
                       'СОЗДАТЬ АККАУНТ',

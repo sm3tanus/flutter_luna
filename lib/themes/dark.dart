@@ -8,7 +8,7 @@ ThemeData themeData = ThemeData(
       foregroundColor: WidgetStatePropertyAll(
         Colors.black,
       ),
-      textStyle: WidgetStatePropertyAll(
+      textStyle:WidgetStatePropertyAll (
         TextStyle(
           fontWeight: FontWeight.w600,
           color: Colors.black,
